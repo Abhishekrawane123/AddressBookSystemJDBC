@@ -6,7 +6,18 @@ import java.util.Scanner;
 
 public class Person {
 	
-	public static AddressBook newPerson() {
+	public List<AddressBook> addreses;
+	
+	public Person() {
+		addreses = new ArrayList();
+	}
+	
+	public void addContact(AddressBook addressBook) {
+		addreses.add(addressBook);
+		System.out.println(addreses);
+	}
+
+	public static AddressBook contactPerson() {
 
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("first name : ");
@@ -27,24 +38,40 @@ public class Person {
 		return addressBook;
 	}
 
-	public AddressBook updateDetails(String name,AddressBook addressBook) {
+	public void updateDetails(String name,AddressBook addressBook) {
 		
-		if (addressBook.getFirstName().equals(name)) {
-			addressBook = newPerson();
+		Scanner scanner = new Scanner(System.in);
+		for(int i=0;i<addreses.size();i++) {
+			if (addressBook.getFirstName().equals(name)) {
+				System.out.println("enter phone number");
+				String number = scanner.next();
+				addressBook.setPhoneNumber(number);
+			}
 		}
-		return addressBook;
+		System.out.println(addreses);
+	}
+	
+	public void deleteContact(String name,AddressBook addressBook) {
+		for(int i=0;i<addreses.size();i++) {
+			if(addressBook.getFirstName().equals(name)) {
+				addreses.remove(i);
+			}
+		}
+		System.out.println(addreses);
 	}
 
 	public static void main(String[] args) {
 
 		System.out.println("welcome to the address book program");
-		AddressBook addressBook = newPerson();
-		System.out.println(addressBook);
+		AddressBook addressBook = contactPerson();
+		Person contactPerson = new Person();
+		contactPerson.addContact(addressBook);
 		Scanner scanner = new Scanner(System.in);
-		System.out.println("enter a name");
+		System.out.println("enter a first name of contact to modify");
 		String name = scanner.next();
-		Person newPerson=new Person();
-		addressBook = newPerson.updateDetails(name,addressBook);
-		System.out.println(addressBook);
+		contactPerson.updateDetails(name,addressBook);
+		System.out.println("enter a first name to delete contact ");
+		String name1 = scanner.next();
+		contactPerson.deleteContact(name,addressBook);
 	}
 }
