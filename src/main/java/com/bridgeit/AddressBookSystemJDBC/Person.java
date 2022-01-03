@@ -5,73 +5,67 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Person {
-	
+
 	public List<AddressBook> addreses;
-	
+
 	public Person() {
-		addreses = new ArrayList();
+		addreses = new ArrayList<>();
 	}
-	
+
 	public void addContact(AddressBook addressBook) {
+		
+		//added new contact into list
 		addreses.add(addressBook);
 		System.out.println(addreses);
 	}
 
-	public static AddressBook contactPerson() {
-
+	public static AddressBook inputContactDetails() {
+		
 		Scanner scanner = new Scanner(System.in);
-		System.out.println("first name : ");
+		System.out.println(" enter first name : ");
 		String firstName = scanner.next();
-		System.out.println("last name : ");
+		System.out.println("enter last name : ");
 		String lastName = scanner.next();
-		System.out.println("address : ");
+		System.out.println(" enter address : ");
 		String address = scanner.next();
-		System.out.println("city name : ");
+		System.out.println("enter city name : ");
 		String cityName = scanner.next();
-		System.out.println("state name : ");
+		System.out.println("enter state name : ");
 		String stateName = scanner.next();
 		System.out.println("zip : ");
 		String zip = scanner.next();
-		System.out.println("phone number : ");
+		System.out.println("enter phone number : ");
 		String phoneNumber = scanner.next();
 		AddressBook addressBook = new AddressBook(firstName, lastName, address, cityName, stateName, zip, phoneNumber);
 		return addressBook;
 	}
 
-	public void updateDetails(String name,AddressBook addressBook) {
-		
+	public void updateContact(String name, AddressBook addressBook) {
+		//updated the phone number of existing contact
+		int count=0;
 		Scanner scanner = new Scanner(System.in);
-		for(int i=0;i<addreses.size();i++) {
+		System.out.println("enter phone number : ");
+		String number = scanner.next();
+		for (int i = 0; i < addreses.size(); i++) {
 			if (addressBook.getFirstName().equals(name)) {
-				System.out.println("enter phone number");
-				String number = scanner.next();
 				addressBook.setPhoneNumber(number);
+				count++;
 			}
+		}
+		if(count==0) {
+			System.out.println(name + " contact not existed ");
 		}
 		System.out.println(addreses);
 	}
-	
-	public void deleteContact(String name,AddressBook addressBook) {
-		for(int i=0;i<addreses.size();i++) {
-			if(addressBook.getFirstName().equals(name)) {
+
+	public void deleteContact(String name, AddressBook addressBook) {
+		
+		//delete the matched contact
+		for (int i = 0; i < addreses.size(); i++) {
+			if (addressBook.getFirstName().equals(name)) {
 				addreses.remove(i);
 			}
 		}
 		System.out.println(addreses);
-	}
-
-	public static void main(String[] args) {
-
-		System.out.println("welcome to the address book program");
-		AddressBook addressBook = contactPerson();
-		Person contactPerson = new Person();
-		contactPerson.addContact(addressBook);
-		Scanner scanner = new Scanner(System.in);
-		System.out.println("enter a first name of contact to modify");
-		String name = scanner.next();
-		contactPerson.updateDetails(name,addressBook);
-		System.out.println("enter a first name to delete contact ");
-		String name1 = scanner.next();
-		contactPerson.deleteContact(name,addressBook);
 	}
 }

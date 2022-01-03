@@ -1,7 +1,5 @@
 package com.bridgeit.AddressBookSystemJDBC;
 
-import java.util.Scanner;
-
 public class AddressBook {
 
 	private String firstName;
