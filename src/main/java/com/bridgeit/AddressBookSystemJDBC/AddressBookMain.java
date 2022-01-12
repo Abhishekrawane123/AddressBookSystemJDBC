@@ -1,10 +1,14 @@
 package com.bridgeit.AddressBookSystemJDBC;
 
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Scanner;
 
 public class AddressBookMain {
 
 	public final static int EXIT = 5;
+	public final static int EXIT_TWO = 4;
+
 
 	public static <T> void main(String[] args) {
 
@@ -12,14 +16,16 @@ public class AddressBookMain {
 		System.out.println("....................welcome to the address book program..........................");
 		Scanner scanner = new Scanner(System.in);
 		int exit2=0;
-		while (exit2 != 3) {
+		while (exit2 != EXIT_TWO) {
 			
-			Person<Object> contactPerson = new Person<>();
+			ContactPerson<Object> contactPerson = new ContactPerson<>();
 			AddressBook addressBook = new AddressBook();
 			System.out.println("enter adress book name of a person");
 			String person = scanner.next();
-			System.out.println(" enter 1 : for add multiple address books \n enter 2 : for print multipleBoks \n enter 3 : for exit \n ");
+	
+			System.out.println("\n enter 1 : for add multiple address books \n enter 2 : for print multipleBoks \n enter "+ EXIT_TWO +" : for exit \n ");
 			int num = scanner.nextInt();
+
 			switch (num) {
 			case 1:
 				int exit = 0;
@@ -38,11 +44,12 @@ public class AddressBookMain {
 						String name1 = scanner.next();
 						int count = contactPerson.dublicateAddress(name1, addressBook);
 						if (count == 0) {
-							addressBook = Person.inputContactDetails();
+							addressBook = ContactPerson.inputContactDetails();
 							contactPerson.addContact(addressBook);
 							break;
 						}
 						break;
+						
 					case 2:
 						System.out.println("enter a firsName of contact to modify");
 						String name = scanner.next();
@@ -57,19 +64,16 @@ public class AddressBookMain {
 						System.out.println("quit from the address book program");
 						break;
 					}
-				}
-				//contactPerson.multiAddressBooks(addressBook);
-				
-				multipleAddressBooks.mapBook.put(person, Person.addreses);
+				}				
+				multipleAddressBooks.mapBook.put(person, contactPerson.addreses);
 				System.out.println(multipleAddressBooks.mapBook);
 				break;
 			case 2:
 				contactPerson.printBooks(multipleAddressBooks);
-			case 3:
-				exit2=3;
+			case 4:
+				exit2=4;
 				break;
 			}
 		}
-		scanner.close();
 	}
 }
